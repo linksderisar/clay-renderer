@@ -11,20 +11,20 @@
 
         data() {
             return {
-                clayRenderer: new Renderer(this),
+                clayRenderer: new Renderer(this, require('jexl')),
                 renderedBlueprint: {},
                 h: () => {
                 },
             };
         },
 
-        mounted() {
-            this.renderBlueprint();
-        },
-
         watch: {
-            blueprint() {
-                this.renderBlueprint();
+            blueprint: {
+                handler() {
+                    this.renderBlueprint();
+                },
+                immediate: true,
+                deep: true
             }
         },
         methods: {
@@ -32,12 +32,16 @@
                 window.location.reload();
             },
             renderBlueprint() {
-                this.renderedBlueprint = this.clayRenderer.render(this.h, this.blueprint);
+                this.clayRenderer.render(this.$createElement, this.blueprint)
+                    .then(renderedBlueprint => {
+                        this.renderedBlueprint = renderedBlueprint;
+                    });
             }
         },
 
         render(h) {
             this.h = h;
+
             return this.renderedBlueprint;
         },
     };

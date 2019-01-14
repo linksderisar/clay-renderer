@@ -2,7 +2,6 @@
 
 import _ from 'lodash';
 
-const jexl = require('jexl');
 
 const $_SELF = '$_self';
 const $_LOOP = 'loop';
@@ -18,9 +17,10 @@ export default class Renderer {
      * @param {Object} blueprint - Initial json blueprint.
      * @param {function} h - Render function..
      */
-    constructor(clayView) {
+    constructor(clayView, jexl) {
         this.clayView = clayView;
         this.props = {};
+        this.jexl = jexl;
     }
 
     /**
@@ -28,8 +28,9 @@ export default class Renderer {
      * @param {Object} blueprint - Initial json blueprint.
      * @param {function} h - Render function..
      */
-    render(h, {componentTree, store}) {
+    async render(h, {componentTree, store}) {
         this.h = h;
+        console.log('in_render', '1');
 
         this.props.clayView = {
             methods: {
@@ -45,8 +46,12 @@ export default class Renderer {
             throw 'Root Element needs to be an Object';
         }
 
+        console.log('in_render -tree ', componentTree);
+
         this.registerDataStore(store);
-        return this.createVNode(componentTree);
+        const result = await this.createVNode(componentTree);
+        console.log('in_render - done ', 'result');
+        return result;
     }
 
     /**
@@ -66,22 +71,29 @@ export default class Renderer {
      * @param blueprint
      * @returns {*}
      */
-    createVNode(blueprint) {
-        if (blueprint.if) {
-            console.log(this.resolveCondition(blueprint.if));
-            if (!this.resolveCondition(blueprint.if)) {
-                return null;
-            }
-        }
+    async createVNode(blueprint) {
+        /*        if (blueprint.if) {
+                    console.log(this.resolveCondition(blueprint.if));
+                    if (!this.resolveCondition(blueprint.if)) {
+                        return null;
+                    }
+                }*/
+        console.log('in_render -createVNode ', blueprint);
 
-        return this.h(
+        const children = await this.createChildren(blueprint);
+        console.log('in_render -createVNode --children ', children);
+
+        const result = this.h(
             blueprint.type,
             {
-                ...this.createScopedSlots(blueprint),
-                ...this.createDataObject(blueprint),
+              //  ...this.createScopedSlots(blueprint),
+               // ...this.createDataObject(blueprint),
             },
-            this.createChildren(blueprint),
+            children,
         );
+        console.log('in_render -createVNode --done ', 'result');
+
+        return result;
     }
 
     /**
@@ -90,16 +102,16 @@ export default class Renderer {
      * @param {array|Object} blueprint - Loop through the array and converted Blueprints to VNode.
      * @param {Object} props - Props witch will be passed to scoped slots.
      */
-    createVNodes(blueprint) {
+    async createVNodes(blueprint) {
         const vNodes = [];
 
-        blueprint.forEach((element) => {
+        await blueprint.forEach(async (element) => {
             if (element[$_LOOP]) {
                 this.createForNodes(element).forEach(forElement => vNodes.push(forElement));
                 return;
             }
 
-            vNodes.push(this.createVNode(element));
+            vNodes.push(await this.createVNode(element));
         });
 
         return vNodes;
@@ -111,14 +123,14 @@ export default class Renderer {
      * @param blueprint
      * @returns {Array}
      */
-    createForNodes(blueprint) {
+    async createForNodes(blueprint) {
         const iterable = this.getBindByRef(blueprint[$_LOOP]);
         const vNodes = [];
 
         if (_.isObject(iterable) && !(iterable instanceof Array)) {
-            Object.keys(iterable).forEach((key, index) => {
+            await Object.keys(iterable).forEach(async (key, index) => {
                 vNodes.push(
-                    this.createVNode(
+                    await this.createVNode(
                         this.setForRef(
                             _.cloneDeep(blueprint),
                             key,
@@ -129,10 +141,11 @@ export default class Renderer {
             });
             return vNodes;
         }
+
         if (Array.isArray(iterable)) {
-            iterable.forEach((value, index) => {
+            await iterable.forEach(async (value, index) => {
                 vNodes.push(
-                    this.createVNode(
+                    await this.createVNode(
                         this.setForRef(
                             _.cloneDeep(blueprint),
                             index,
@@ -236,7 +249,7 @@ export default class Renderer {
      * @returns {*}
      */
     resolveCondition(condition) {
-        const result = jexl.eval(condition, this.clayView[REACTIVESTORE])
+        const result = this.jexl.eval(condition, this.clayView[REACTIVESTORE])
             .then((result) => {
                 return Promise.resolve(result);
             });
@@ -437,8 +450,9 @@ export default class Renderer {
      *
      * @param {Object} blueprint - Blueprint/s will be converted to VNode/s as child components.
      */
-    createChildren({children}) {
+    async createChildren({children}) {
         if (children === undefined) {
+            console.log('in_render -createChildren --noChildren ');
             return null;
         }
 
@@ -447,14 +461,18 @@ export default class Renderer {
         }
 
         if (Array.isArray(children)) {
-            return this.createVNodes(children);
+            return await this.createVNodes(children);
         }
 
         if (children.type === TYPE_TEXT) {
-            return this.getValueByKey('value', children);
+            const result = this.getValueByKey('value', children);
+            console.log('in_render -createChildren --text ', result);
+            return result;
         }
 
-        return this.createVNode(children);
+        console.log('in_render -createChildren ', children);
+
+        return await this.createVNode(children);
     }
 
     /**

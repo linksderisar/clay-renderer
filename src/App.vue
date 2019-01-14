@@ -1,11 +1,7 @@
 <template>
     <div id="app">
         <img alt="Vue logo" src="./assets/logo.png">
-        <clay-view :blueprint="root(component('div', {
-            children: [
-                component('span', {if: 'true == false'}),
-            ]
-        }))"/>
+        <clay-view :blueprint="blueprint"/>
     </div>
 </template>
 
@@ -19,11 +15,23 @@
         components: {
             clayView,
         },
-        computed:{
-            root(){
+        data() {
+            return {
+                blueprint: root(component('div', {
+                    children: [
+                        component('span'),
+                    ],
+                    attributes: {
+                        class: 'lala'
+                    }
+                }))
+            }
+        },
+        computed: {
+            root() {
                 return root;
             },
-            component(){
+            component() {
                 return component;
             }
         }
