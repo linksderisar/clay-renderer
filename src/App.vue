@@ -9,7 +9,6 @@
     import clayView from './components/clay-view.vue';
     import {component, root} from '@/../tests/test-utils.js'
 
-
     export default {
         name: 'app',
         components: {
@@ -17,14 +16,7 @@
         },
         data() {
             return {
-                blueprint: root(component('div', {
-                    children: [
-                        component('span'),
-                    ],
-                    attributes: {
-                        class: 'lala'
-                    }
-                }))
+                blueprint: root(component('div',{children:[component('div',{children: 'asjdasd', if:'true == false'})]}))
             }
         },
         computed: {
@@ -37,14 +29,3 @@
         }
     };
 </script>
-
-<style>
-    #app {
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
-        margin-top: 60px;
-    }
-</style>

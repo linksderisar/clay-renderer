@@ -1,23 +1,18 @@
 <script>
-    import Renderer from '@/renderer.js';
+    import render from '@/render.mixing.js';
+    import Clay from '@/clay.js';
+
+    const clay = new Clay();
 
     export default {
+        mixins: [render],
         props: {
             blueprint: {
                 type: Object,
                 required: true,
             },
         },
-
-        data() {
-            return {
-                clayRenderer: new Renderer(this, require('jexl')),
-                renderedBlueprint: {},
-                h: () => {
-                },
-            };
-        },
-
+        components: clay.components,
         watch: {
             blueprint: {
                 handler() {
@@ -32,7 +27,7 @@
                 window.location.reload();
             },
             renderBlueprint() {
-                this.clayRenderer.render(this.$createElement, this.blueprint)
+                this.start_render(this.$createElement, this.blueprint)
                     .then(renderedBlueprint => {
                         this.renderedBlueprint = renderedBlueprint;
                     });
@@ -40,8 +35,6 @@
         },
 
         render(h) {
-            this.h = h;
-
             return this.renderedBlueprint;
         },
     };
