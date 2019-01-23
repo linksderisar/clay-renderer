@@ -1,9 +1,9 @@
 <template>
-    <div data-test-div-component></div>
+    <div data-test-div-component />
 </template>
 
 <script>
-    export default {
-        name: "test-component-div"
-    }
+export default {
+  name: 'TestComponentDiv',
+};
 </script>

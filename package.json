@@ -5,13 +5,14 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:library": "vue-cli-service build --target lib --name clay-renderer ./src/plugin/clay.js",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit",
     "test:unit-debug": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "jexl": "^2.0.1",
+    "jexl": "^2.1.0",
     "lodash": "^4.17.11",
     "vue": "^2.5.21"
   },

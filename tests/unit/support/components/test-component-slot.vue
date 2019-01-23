@@ -1,13 +1,13 @@
 <template>
     <div data-test-component-slot>
-        <slot></slot>
+        <slot />
     </div>
 </template>
 
 <script>
-    export default {
-        name: "test-component-slot",
-    }
+export default {
+  name: 'TestComponentSlot',
+};
 </script>
 
 <style scoped>

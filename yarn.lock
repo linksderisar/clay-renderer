@@ -5969,10 +5969,10 @@ jest@^23.6.0:
     import-local "^1.0.0"
     jest-cli "^23.6.0"
 
-jexl@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/jexl/-/jexl-2.0.1.tgz#34b20e91e434df8952383062b3db5bfb5b756aa5"
-  integrity sha512-qFrbZ87byJBG3MdC4n8zbvqBs7ctr/d6eHwRmIFWatu27J4KH5yn6wMqtCfifM0B3mhQhqJZJCj+3Jaaz/jbkg==
+jexl@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/jexl/-/jexl-2.1.0.tgz#ea33e8b78143938b80362cd87f4411468434f97d"
+  integrity sha512-WltzrdpAgwjMni9WzRANrfMJhxfrYXRalCmnWdVCw7Foz2BBSpMaZ6OBkE9Hmqo9WWvFwlGplh52uBvxsU0gXw==
 
 joi@^14.3.0:
   version "14.3.1"
