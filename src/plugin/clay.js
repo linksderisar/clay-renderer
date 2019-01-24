@@ -1,4 +1,5 @@
 import ClayView from '@/components/clay-view';
+import Clay from '../clay';
 
 const plugin = {};
 plugin.install = function (Vue, { components }) {
@@ -10,9 +11,9 @@ plugin.install = function (Vue, { components }) {
   // 3. inject some component options
   Vue.mixin({
     props: {
-      clay: {
-        type: Object,
-        default: () => ({ id: () => console.warn('Component must be rendered with Clay to get Clay id') }),
+      $clay: {
+        type: Clay,
+        default: () => new Clay({}),
       },
     },
   });

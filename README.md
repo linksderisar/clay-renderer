@@ -1,4 +1,4 @@
-# renderer
+# Clay Renderer
 
 ## Project setup
 ```

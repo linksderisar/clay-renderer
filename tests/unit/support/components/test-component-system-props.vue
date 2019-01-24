@@ -1,7 +1,7 @@
 <template>
     <div
         data-test-component-system-props
-        v-text="clay.id()"
+        v-text="$clay.id"
     />
 </template>
 

@@ -1,6 +1,7 @@
 <script>
 import jexl from 'jexl';
 import _ from 'lodash';
+import Clay from '../clay';
 
 const $_SELF = '$_self';
 const $_LOOP = 'loop';
@@ -304,9 +305,7 @@ export default {
      */
     createSystemProps(blueprint) {
       return {
-        clay: {
-          id: () => blueprint.id,
-        },
+        $clay: new Clay({ id: blueprint.id }),
       };
     },
 
