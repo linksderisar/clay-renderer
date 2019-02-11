@@ -1,5 +1,5 @@
 import { createLocalVue, mount } from '@vue/test-utils';
-import clayView from '@/components/clay-view.vue';
+import clayView from './support/ClayViewTest';
 import { component, root } from '../test-utils.js';
 import components from './config/clay';
 import clay from '@/plugin/clay';
@@ -184,9 +184,9 @@ describe('clay-view renders simple HTML Tags', () => {
     wrapper.setProps({ blueprint });
 
     expect(wrapper.find('div').findAll('span').length).toBe(3);
-    expect(wrapper.vm.renderedBlueprint.children[0].key).toBe('duplicate');
-    expect(wrapper.vm.renderedBlueprint.children[1].key).toBe('duplicate');
-    expect(wrapper.vm.renderedBlueprint.children[2].key).toBe('duplicate');
+    expect(wrapper.vm.$children[0].renderedBlueprint.children[0].key).toBe('duplicate');
+    expect(wrapper.vm.$children[0].renderedBlueprint.children[1].key).toBe('duplicate');
+    expect(wrapper.vm.$children[0].renderedBlueprint.children[2].key).toBe('duplicate');
   });
 
   it('with v-for and bound key', () => {
@@ -207,9 +207,9 @@ describe('clay-view renders simple HTML Tags', () => {
     wrapper.setProps({ blueprint });
 
     expect(wrapper.find('div').findAll('span').length).toBe(3);
-    expect(wrapper.vm.renderedBlueprint.children[0].key).toBe('value_0');
-    expect(wrapper.vm.renderedBlueprint.children[1].key).toBe('value_1');
-    expect(wrapper.vm.renderedBlueprint.children[2].key).toBe('value_2');
+    expect(wrapper.vm.$children[0].renderedBlueprint.children[0].key).toBe('value_0');
+    expect(wrapper.vm.$children[0].renderedBlueprint.children[1].key).toBe('value_1');
+    expect(wrapper.vm.$children[0].renderedBlueprint.children[2].key).toBe('value_2');
   });
 
   it('with v-for and refInFor', () => {
@@ -231,7 +231,7 @@ describe('clay-view renders simple HTML Tags', () => {
     wrapper.setProps({ blueprint });
 
     expect(wrapper.find('div').findAll('span').length).toBe(3);
-    expect(wrapper.vm.$refs.ref.length).toBe(3);
+    expect(wrapper.vm.$children[0].$refs.ref.length).toBe(3);
   });
 });
 
@@ -413,9 +413,9 @@ describe('clay-view renders vue component', () => {
     wrapper.setProps({ blueprint });
 
     expect(wrapper.find('div').findAll('*[data-test-component-slot]').length).toBe(3);
-    expect(wrapper.vm.renderedBlueprint.children[0].key).toBe('duplicate');
-    expect(wrapper.vm.renderedBlueprint.children[1].key).toBe('duplicate');
-    expect(wrapper.vm.renderedBlueprint.children[2].key).toBe('duplicate');
+    expect(wrapper.vm.$children[0].renderedBlueprint.children[0].key).toBe('duplicate');
+    expect(wrapper.vm.$children[0].renderedBlueprint.children[1].key).toBe('duplicate');
+    expect(wrapper.vm.$children[0].renderedBlueprint.children[2].key).toBe('duplicate');
   });
 
   it('with v-for and bound key', () => {
@@ -436,9 +436,9 @@ describe('clay-view renders vue component', () => {
     wrapper.setProps({ blueprint });
 
     expect(wrapper.find('div').findAll('*[data-test-component-slot]').length).toBe(3);
-    expect(wrapper.vm.renderedBlueprint.children[0].key).toBe('value_0');
-    expect(wrapper.vm.renderedBlueprint.children[1].key).toBe('value_1');
-    expect(wrapper.vm.renderedBlueprint.children[2].key).toBe('value_2');
+    expect(wrapper.vm.$children[0].renderedBlueprint.children[0].key).toBe('value_0');
+    expect(wrapper.vm.$children[0].renderedBlueprint.children[1].key).toBe('value_1');
+    expect(wrapper.vm.$children[0].renderedBlueprint.children[2].key).toBe('value_2');
   });
 
   it('with v-for and refInFor', () => {
@@ -460,6 +460,6 @@ describe('clay-view renders vue component', () => {
     wrapper.setProps({ blueprint });
 
     expect(wrapper.find('div').findAll('*[data-test-component-slot]').length).toBe(3);
-    expect(wrapper.vm.$refs.ref.length).toBe(3);
+    expect(wrapper.vm.$children[0].$refs.ref.length).toBe(3);
   });
 });

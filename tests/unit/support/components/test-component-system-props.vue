@@ -7,6 +7,6 @@
 
 <script>
 export default {
-  name: 'TestComponentVModel',
+  name: 'TestComponentSystemProps',
 };
 </script>

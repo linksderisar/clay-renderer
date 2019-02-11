@@ -1,5 +1,5 @@
 import { mount, createLocalVue } from '@vue/test-utils';
-import clayView from '@/components/clay-view.vue';
+import clayView from './support/ClayViewTest';
 import components from './config/clay';
 import clay from '@/plugin/clay';
 import { component, root } from '../test-utils.js';
@@ -55,10 +55,10 @@ describe('clay-view renders simple HTML Tags', () => {
   });
 
   it('with ref styles', () => {
-    const blueprint = root(component('div', { attributes: { ref: 'ref' } }));
+    const blueprint = root(component('div', { attributes: { ref: 'refKey' } }));
     wrapper.setProps({ blueprint });
 
-    expect(wrapper.find({ ref: 'ref' }).exists()).toBe(true);
+    expect(Object.keys(wrapper.vm.$children[0].$refs)[0]).toBe('refKey');
   });
 
   it('with child', () => {
@@ -154,7 +154,7 @@ describe('clay-view renders vue component', () => {
 
     expect(wrapper.find('*[data-test-component-props]').exists()).toBe(true);
     expect(wrapper.find('*[data-test-component-props]').text()).toBe('propValue');
-    expect(wrapper.vm.$children[0].$props.msg).toBe('propValue');
+    expect(wrapper.vm.$children[0].$children[0].$props.msg).toBe('propValue');
   });
 
   it('with bound props', () => {
@@ -173,7 +173,7 @@ describe('clay-view renders vue component', () => {
 
     expect(wrapper.find('*[data-test-component-props]').exists()).toBe(true);
     expect(wrapper.find('*[data-test-component-props]').text()).toBe('propValue');
-    expect(wrapper.vm.$children[0].$props.msg).toBe('propValue');
+    expect(wrapper.vm.$children[0].$children[0].$props.msg).toBe('propValue');
   });
 
   it('with a slot', () => {
@@ -300,17 +300,17 @@ describe('clay-view renders vue component', () => {
 
     expect(wrapper.find('input').exists()).toBe(true);
 
-    expect(wrapper.vm.store.boundValue).toBe('default');
+    expect(wrapper.vm.$children[0].store.boundValue).toBe('default');
     expect(wrapper.find('input').element.value).toBe('default');
 
-    wrapper.vm.store.boundValue = 'new value';
+    wrapper.vm.$children[0].store.boundValue = 'new value';
 
-    expect(wrapper.vm.store.boundValue).toBe('new value');
+    expect(wrapper.vm.$children[0].store.boundValue).toBe('new value');
     expect(wrapper.find('input').element.value).toBe('new value');
 
     wrapper.find('input').setValue('new input');
 
-    expect(wrapper.vm.store.boundValue).toBe('new input');
+    expect(wrapper.vm.$children[0].store.boundValue).toBe('new input');
     expect(wrapper.find('input').element.value).toBe('new input');
   });
 

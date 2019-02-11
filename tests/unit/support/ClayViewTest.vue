@@ -1,9 +1,15 @@
 <template>
-    <clay-view />
+    <clay-view :blueprint="blueprint" />
 </template>
 
 <script>
 export default {
-  name: 'ClayView',
+  name: 'ClayViewTest',
+  props: {
+    blueprint: {
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>

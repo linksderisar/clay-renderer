@@ -8,12 +8,14 @@ import testComponentSystemProps from '../support/components/test-component-syste
 
 export default {
   components: {
-    testComponentDiv,
-    testComponentProps,
-    testComponentSlot,
-    testComponentSlots,
-    testComponentScopedSlot,
-    testComponentEvent,
-    testComponentSystemProps,
+    default: {
+      testComponentDiv,
+      testComponentProps,
+      testComponentSlot,
+      testComponentSlots,
+      testComponentScopedSlot,
+      testComponentEvent,
+      testComponentSystemProps,
+    },
   },
 };
