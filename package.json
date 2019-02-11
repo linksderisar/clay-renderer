@@ -1,7 +1,12 @@
 {
-  "name": "renderer",
-  "version": "0.1.0",
-  "private": true,
+  "name": "clay-renderer",
+  "version": "0.1.1",
+  "private": false,
+  "main": "dist/clay-renderer.common.js",
+  "files": [
+    "src",
+    "dist/*.js"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
