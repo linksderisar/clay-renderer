@@ -587,6 +587,13 @@ export default {
 
       Object.keys(blueprint.attributes.on)
         .forEach((key) => {
+          if (_.isFunction(blueprint.attributes.on[key])) {
+            on[key] = (value) => {
+              blueprint.attributes.on[key](value);
+            };
+            return;
+          }
+
           const { method, params } = this.getEvent(blueprint.attributes.on[key]);
           on[key] = (value) => {
             method(value, ...params);

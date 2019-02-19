@@ -107,6 +107,25 @@ describe('clay-view renders simple HTML Tags', () => {
     expect(wrapper.attributes('id')).toBe('someId');
   });
 
+  it('with normal events', () => {
+    let eventValue = '';
+    const blueprint = root(component('input', {
+      attributes: {
+        on: {
+          input: (event) => {
+            eventValue = event.target.value;
+          },
+        },
+      },
+    }));
+
+    wrapper.setProps({ blueprint });
+
+    expect(eventValue).toBe('');
+    wrapper.find('input').setValue('Event Triggerd');
+    expect(eventValue).toBe('Event Triggerd');
+  });
+
   it('with normal domProps attrs', () => {
     const blueprint = root(component('input', {
       attributes: {
