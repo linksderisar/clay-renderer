@@ -333,6 +333,42 @@ describe('clay-view renders vue component', () => {
     expect(wrapper.find('input').element.value).toBe('new input');
   });
 
+  it('with v-model and custom get', () => {
+    const blueprint = root(
+      component('input', {
+        affect: ['boundValue', 'event.target.type'],
+        attributes: {
+          domProps: {
+            ':value': 'boundValue',
+            type: 'text',
+          },
+        },
+      }),
+      {
+        store: {
+          boundValue: 'default',
+        },
+      },
+    );
+
+    wrapper.setProps({ blueprint });
+
+    expect(wrapper.find('input').exists()).toBe(true);
+
+    expect(wrapper.vm.$children[0].store.boundValue).toBe('default');
+    expect(wrapper.find('input').element.value).toBe('default');
+
+    wrapper.vm.$children[0].store.boundValue = 'new value';
+
+    expect(wrapper.vm.$children[0].store.boundValue).toBe('new value');
+    expect(wrapper.find('input').element.value).toBe('new value');
+
+    wrapper.find('input').setValue('new input');
+
+    expect(wrapper.vm.$children[0].store.boundValue).toBe('text');
+    expect(wrapper.find('input').element.value).toBe('text');
+  });
+
 
   it('with system props', () => {
     const blueprintComponent = component('testComponentSystemProps');

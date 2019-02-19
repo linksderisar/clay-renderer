@@ -615,15 +615,19 @@ export default {
       if (!blueprint.affect) {
         return {};
       }
-      const { affect } = blueprint;
 
+      let { affect } = blueprint;
+
+      if (!Array.isArray(affect)) {
+        affect = [affect];
+      }
       return {
         input: (event) => {
           $self.setBindValue(
-            affect.split('.')[0] === $_SELF
-              ? affect.replace($_SELF, `${blueprint.id}.`)
-              : affect,
-            event.target.value,
+            affect[0].split('.')[0] === $_SELF
+              ? affect[0].replace($_SELF, `${blueprint.id}.`)
+              : affect[0],
+            _.get({ event }, affect[1] || 'event.target.value'),
           );
         },
       };
