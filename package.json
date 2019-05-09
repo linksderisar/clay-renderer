@@ -1,6 +1,6 @@
 {
   "name": "clay-renderer",
-  "version": "0.1.31",
+  "version": "0.1.32",
   "private": false,
   "main": "dist/clay-renderer.common.js",
   "files": [
