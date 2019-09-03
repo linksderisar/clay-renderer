@@ -18,6 +18,10 @@ export default {
       type: Object,
       required: true,
     },
+    components: {
+      type: Object,
+      default: () => ({}),
+    },
     before: {
       type: Function,
       default: blueprint => blueprint,
@@ -45,6 +49,41 @@ export default {
   },
 
   computed: {
+    renderbaleComponents() {
+      const components = {};
+      Object.keys(this.components).forEach((componentKey) => {
+        const component = { ...this.components[componentKey] };
+
+        if (component.props === undefined) {
+          component.props = {
+            $clay: {
+              type: Clay,
+              default: () => new Clay({}),
+            },
+          };
+        }
+
+        if (Array.isArray(component.props)) {
+          component.props = [
+            '$clay',
+            ...component.props || [],
+          ];
+        }
+
+        if (_.isObject(component.props) && !Array.isArray(component.props)) {
+          component.props = {
+            $clay: {
+              type: Clay,
+              default: () => new Clay({}),
+            },
+            ...component.props,
+          };
+        }
+
+        components[componentKey] = component;
+      });
+      return components;
+    },
     renderedBlueprint() {
       const { componentTree, store } = this.before(_.clone(this.blueprint));
 
@@ -88,7 +127,7 @@ export default {
       parsedBlueprint = this.afterEach(parsedBlueprint, componentBlueprint);
 
       return this.$createElement(
-        parsedBlueprint.type,
+        this.getComponent(parsedBlueprint.type),
         parsedBlueprint.attributes,
         parsedBlueprint.children,
       );
@@ -631,6 +670,13 @@ export default {
           );
         },
       };
+    },
+
+    getComponent(type) {
+      if (this.renderbaleComponents[type] === undefined) {
+        return type;
+      }
+      return this.renderbaleComponents[type];
     },
 
     /**

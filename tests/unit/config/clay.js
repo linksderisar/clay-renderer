@@ -7,15 +7,11 @@ import testComponentEvent from '../support/components/test-component-event';
 import testComponentSystemProps from '../support/components/test-component-system-props';
 
 export default {
-  components: {
-    default: {
-      testComponentDiv,
-      testComponentProps,
-      testComponentSlot,
-      testComponentSlots,
-      testComponentScopedSlot,
-      testComponentEvent,
-      testComponentSystemProps,
-    },
-  },
+  testComponentDiv,
+  testComponentProps,
+  testComponentSlot,
+  testComponentSlots,
+  testComponentScopedSlot,
+  testComponentEvent,
+  testComponentSystemProps,
 };

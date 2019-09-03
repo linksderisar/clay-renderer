@@ -3,18 +3,20 @@ import clayView from './support/ClayViewTest';
 import components from './config/clay';
 import clay from '@/plugin/clay';
 import { component, root } from '../test-utils.js';
+import testComponentDiv from './support/components/test-component-div';
+import testComponentProps from './support/components/test-component-props';
+import testComponentSlot from './support/components/test-component-slot';
+import testComponentSlots from './support/components/test-component-slots';
+import testComponentScopedSlot from './support/components/test-component-scoped-slot';
+import testComponentEvent from './support/components/test-component-event';
+import testComponentSystemProps from './support/components/test-component-system-props';
 
 describe('clay-view renders simple HTML Tags', () => {
   let wrapper;
-  const localVue = createLocalVue();
-
-  // install plugins as normal
-  localVue.use(clay, components);
 
   beforeEach(() => {
     wrapper = mount(clayView, {
       propsData: { blueprint: {} },
-      localVue,
     });
   });
 
@@ -148,15 +150,21 @@ describe('clay-view renders simple HTML Tags', () => {
 
 describe('clay-view renders vue component', () => {
   let wrapper;
-  const localVue = createLocalVue();
-
-  // install plugins as normal
-  localVue.use(clay, components);
 
   beforeEach(() => {
     wrapper = mount(clayView, {
-      propsData: { blueprint: {} },
-      localVue,
+      propsData: {
+        blueprint: {},
+        components: {
+          testComponentDiv,
+          testComponentProps,
+          testComponentSlot,
+          testComponentSlots,
+          testComponentScopedSlot,
+          testComponentEvent,
+          testComponentSystemProps,
+        },
+      },
     });
   });
 

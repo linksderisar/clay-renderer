@@ -1,20 +1,14 @@
-import { createLocalVue, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import clayView from './support/ClayViewTest.vue';
 import { component, root } from '../test-utils.js';
 import components from './config/clay';
-import clay from '@/plugin/clay';
 
 describe('clay-view renders conditions', () => {
   let wrapper;
-  const localVue = createLocalVue();
-
-  // install plugins as normal
-  localVue.use(clay, components);
 
   beforeEach(() => {
     wrapper = mount(clayView, {
-      propsData: { blueprint: {} },
-      localVue,
+      propsData: { blueprint: {}, components },
     });
   });
 

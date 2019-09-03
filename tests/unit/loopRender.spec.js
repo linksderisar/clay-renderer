@@ -9,15 +9,10 @@ const loopObject = { key_0: 'value_0', key_1: 'value_1', key_2: 'value_2' };
 
 describe('clay-view renders simple HTML Tags', () => {
   let wrapper;
-  const localVue = createLocalVue();
-
-  // install plugins as normal
-  localVue.use(clay, components);
 
   beforeEach(() => {
     wrapper = mount(clayView, {
-      propsData: { blueprint: {} },
-      localVue,
+      propsData: { blueprint: {}, components },
     });
   });
 
@@ -238,15 +233,10 @@ describe('clay-view renders simple HTML Tags', () => {
 
 describe('clay-view renders vue component', () => {
   let wrapper;
-  const localVue = createLocalVue();
-
-  // install plugins as normal
-  localVue.use(clay, components);
 
   beforeEach(() => {
     wrapper = mount(clayView, {
-      propsData: { blueprint: {} },
-      localVue,
+      propsData: { blueprint: {}, components },
     });
   });
 

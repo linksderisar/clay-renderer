@@ -13,7 +13,7 @@ describe('clay-view root', () => {
 
   beforeEach(() => {
     wrapper = mount(clayView, {
-      propsData: { blueprint: {} },
+      propsData: { blueprint: {}  },
       localVue,
     });
   });
