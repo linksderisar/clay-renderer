@@ -52,7 +52,7 @@ export default {
         return {};
       }
 
-      if (!(componentTree instanceof Object) || (componentTree instanceof Array)) {
+      if (typeof componentTree !== 'object' || (componentTree instanceof Array)) {
         throw 'Root Element needs to be an Object';
       }
 

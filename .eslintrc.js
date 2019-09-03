@@ -10,7 +10,6 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'import/no-unresolved': [2, { ignore: ['~/', '@/'] }],
     'max-len': ['error', {
       code: 150,
       ignoreTemplateLiterals: true,
