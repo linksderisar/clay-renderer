@@ -1,7 +1,5 @@
-import { mount, createLocalVue } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import clayView from './support/ClayViewTest';
-import components from './config/clay';
-import clay from '@/plugin/clay';
 import { component, root } from '../test-utils.js';
 import testComponentDiv from './support/components/test-component-div';
 import testComponentProps from './support/components/test-component-props';

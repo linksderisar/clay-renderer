@@ -1,8 +1,7 @@
-import { createLocalVue, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import clayView from './support/ClayViewTest';
 import { component, root } from '../test-utils.js';
 import components from './config/clay';
-import clay from '@/plugin/clay';
 
 const loopArray = ['value_0', 'value_1', 'value_2'];
 const loopObject = { key_0: 'value_0', key_1: 'value_1', key_2: 'value_2' };
