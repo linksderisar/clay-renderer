@@ -344,7 +344,7 @@ export default {
      */
     createSystemProps(blueprint) {
       return {
-        $clay: new Clay({ id: blueprint.id }),
+        $clay: new Clay({ id: blueprint.id, store: this[REACTIVESTORE] }),
       };
     },
 

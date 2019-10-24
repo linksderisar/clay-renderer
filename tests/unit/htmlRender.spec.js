@@ -8,6 +8,7 @@ import testComponentSlots from './support/components/test-component-slots';
 import testComponentScopedSlot from './support/components/test-component-scoped-slot';
 import testComponentEvent from './support/components/test-component-event';
 import testComponentSystemProps from './support/components/test-component-system-props';
+import testComponentStoreAccess from './support/components/test-component-store-access';
 
 describe('clay-view renders simple HTML Tags', () => {
   let wrapper;
@@ -161,6 +162,7 @@ describe('clay-view renders vue component', () => {
           testComponentScopedSlot,
           testComponentEvent,
           testComponentSystemProps,
+          testComponentStoreAccess,
         },
       },
     });
@@ -383,5 +385,18 @@ describe('clay-view renders vue component', () => {
     wrapper.setProps({ blueprint });
 
     expect(wrapper.text()).toBe(blueprintComponent.id);
+  });
+
+  it('with store Access', () => {
+    const blueprintComponent = component('testComponentStoreAccess');
+    const blueprint = root(blueprintComponent, {
+      store: {
+        [blueprintComponent.id]: 'Store Value',
+      },
+    });
+
+    wrapper.setProps({ blueprint });
+
+    expect(wrapper.text()).toBe('Store Value');
   });
 });

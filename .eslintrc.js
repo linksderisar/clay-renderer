@@ -15,6 +15,7 @@ module.exports = {
       ignoreTemplateLiterals: true,
       ignoreStrings: true,
     }],
+    'no-underscore-dangle': 'off',
     'vue/html-indent': [
       'error', 4, {
         attribute: 1,

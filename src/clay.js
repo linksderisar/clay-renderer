@@ -1,6 +1,9 @@
 export default class Clay {
-  constructor({ id }) {
+  _store;
+
+  constructor({ id, store }) {
     this._id = id;
+    this._store = store;
   }
 
   get id() {
@@ -9,5 +12,13 @@ export default class Clay {
       return null;
     }
     return this._id;
+  }
+
+  getStore(id) {
+    if (this._store[id] === undefined) {
+      throw new Error(`Store for ${id} does not exist!`);
+    }
+
+    return this._store[id];
   }
 }
