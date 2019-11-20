@@ -85,9 +85,9 @@ describe('clay-view renders simple HTML Tags', () => {
 
   it('with Text', () => {
     const blueprint = root(component('div', {
-      children: {
-        ...component('$text', { value: 'Some Text' }),
-      },
+      children: [
+        'Some Text',
+      ],
     }));
     wrapper.setProps({ blueprint });
 

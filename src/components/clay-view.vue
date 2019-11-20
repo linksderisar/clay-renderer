@@ -151,6 +151,11 @@ export default {
           return;
         }
 
+        if (typeof element === 'string' || element instanceof String) {
+          vNodes.push(element);
+          return;
+        }
+
         const vNode = this.createVNode(element);
 
         vNodes.push(vNode);
